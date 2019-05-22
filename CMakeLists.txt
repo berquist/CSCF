@@ -7,6 +7,12 @@ file (GLOB SOURCES "src/*.c")
 
 add_executable(scf ${SOURCES})
 
+target_link_libraries(scf m)
+
+target_link_libraries(scf cblas)
+
+target_link_libraries(scf lapack)
+
 option(BUILD_DOC "Build documentation" ON)
 
 find_package(Doxygen)

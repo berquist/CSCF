@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 #include "basis.h"
 
 typedef struct system {
