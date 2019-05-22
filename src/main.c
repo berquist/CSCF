@@ -8,8 +8,35 @@
  * Once I've got it working for one model, I'll start working on testing as well.
  */
 
+#include "basis.h"
+#include "system.h"
+
 int main(int argc, char *argv[])
 {
-  printf("HELLO\n");
+  
+  bfn H1 = {
+    3,
+    {3.42525091, 0.62391373, 0.16885540},
+    {0.15432897, 0.53532814, 0.44463454},
+    {0, 0, 0},
+    0,
+    1
+  };
+  
+  bfn H2 = {
+    3,
+    {3.42525091, 0.62391373, 0.16885540},
+    {0.15432897, 0.53532814, 0.44463454},
+    {0, 0, 0},
+    0,
+    1
+  };
+  
+  sys hyd = {
+    2,
+    H1.nprimitives + H2.nprimitives,
+    {H1, H2}     
+  };
+  
   return 0;
 }
