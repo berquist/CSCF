@@ -12,4 +12,5 @@ double dist2(double*, double*);
 
 void print_matrix(double* mat, int M, int K);
 
+void print_matrixi(int* mat, int M, int K);
 

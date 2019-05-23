@@ -11,4 +11,6 @@ typedef struct system {
   double V[4];
 } sys;
 
+void print_system_info(sys*);
+
 void init_system(sys*, FILE*, char*);

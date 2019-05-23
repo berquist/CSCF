@@ -21,3 +21,7 @@ double overlap(int*, double*, double, int*, double*, double);
 
 double Sab(bfn, bfn);
 
+double kinetic(int*, double*, double, int*, double*, double);
+
+double Tab(bfn, bfn);
+

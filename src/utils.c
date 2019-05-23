@@ -39,7 +39,17 @@ double dist2(double* vec1, double* vec2){
 void print_matrix(double* mat, int M, int K){
   for(int i = 0; i < M; i++){
     for(int j = 0; j < K; j++){
-      printf("% .5f", mat[i * K + j]);
+      printf("% .5f ", mat[i * K + j]);
+    }
+    printf("\n");
+  }
+  printf("\n");
+}
+
+void print_matrixi(int* mat, int M, int K){
+  for(int i = 0; i < M; i++){
+    for(int j = 0; j < K; j++){
+      printf("%d ", mat[i * K + j]);
     }
     printf("\n");
   }

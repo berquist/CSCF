@@ -42,9 +42,9 @@ int main(int argc, char *argv[])
     2,
     {H1, H2}     
   };
+  normalise(&H1);
   for(int i = 0; i < hyd.nbfs; i++)
     normalise(&(hyd.basisfunctions[i]));
   calculate_integral(&hyd);
-  print_matrix(hyd.S, 2, 2);
   return 0;
 }
