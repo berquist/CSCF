@@ -18,7 +18,7 @@ typedef struct bfn {
   double coefs[3];
   double origin[3];
   int shell[3];
-  double norm;
+  double norm[3];
   double massno;
 } bfn;
 
