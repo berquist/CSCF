@@ -5,11 +5,10 @@
 
 
 void calculate_integral(sys* mol){
+  printf("Computing Overlap Integrals...\n");
   for(int i = 0; i < mol->nbfs; i++){
     for(int j = 0; j < mol->nbfs; j++){
       mol->S[i*mol->nbfs + j] = Sab(mol->basisfunctions[i], mol->basisfunctions[j]);
-      printf("%d\t", i*mol->nbfs + j);
-      print_matrix(mol->basisfunctions[i].norm, 1, 3);
     }
   }
 }

@@ -42,10 +42,8 @@ int main(int argc, char *argv[])
     2,
     {H1, H2}     
   };
-  for(int i = 0; i < 2; i++)
-    printf("%d\n", hyd.basisfunctions[i].nprimitives);
-  normalise(&H1);
-  normalise(&H2);
+  for(int i = 0; i < hyd.nbfs; i++)
+    normalise(&(hyd.basisfunctions[i]));
   calculate_integral(&hyd);
   print_matrix(hyd.S, 2, 2);
   return 0;
