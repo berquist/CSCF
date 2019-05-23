@@ -66,8 +66,13 @@ double kinetic(int* lmn1, double* A, double a, int* lmn2, double* B, double b){
   int pl2mn[3] = { l2 + 2, m2, n2 }; int plm2n[3] = { l2, m2 + 2, n2 }; int plmn2[3] = { l2, m2, n2 + 2 };
   int ml2mn[3] = { l2 - 2, m2, n2 }; int mlm2n[3] = { l2, m2 - 2, n2 }; int mlmn2[3] = { l2, m2, n2 - 2 };
 
+  print_matrixi(lmn2, 1, 3);
+  print_matrixi(pl2mn, 1, 3);
+  print_matrixi(plm2n, 1, 3);
+  print_matrixi(plmn2, 1, 3);
   print_matrixi(ml2mn, 1, 3);
-  printf("%f\n", overlap(lmn1, A, a, ml2mn, B, b));
+  print_matrixi(mlm2n, 1, 3);
+  print_matrixi(mlmn2, 1, 3);
   
   double term1 = b * (2 * (l2 + m2 + n2) + 3) * overlap(lmn1, A, a, lmn2, B, b);
   double term2 = -2 * b * b * (
