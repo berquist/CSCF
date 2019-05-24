@@ -3,21 +3,19 @@ project(SCF)
 
 include_directories(include)
 
-file (GLOB SOURCES "src/*.c")
-
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 add_executable(scf ${SOURCES})
+set(EXTERNAL_LIBS m cblas lapack)
+target_link_libraries(scf ${EXTERNAL_LIBS})
 
-target_link_libraries(scf m)
-
-target_link_libraries(scf cblas)
-
-target_link_libraries(scf lapack)
+enable_testing()
+add_subdirectory(tests)
 
 option(BUILD_DOC "Build documentation" ON)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
-   # set input and output files
+    # set input and output files
     set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 
@@ -32,5 +30,5 @@ if (DOXYGEN_FOUND)
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM )
 else (DOXYGEN_FOUND)
-  message("Doxygen need to be installed to generate the doxygen documentation")
+    message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
