@@ -10,7 +10,19 @@ int compare(double computed, double ref, double thresh) {
     return retval;
 }
 
-int overlap0() {
+int test_overlap1d() {
+    int l1 = 1;
+    int l2 = 1;
+    double PAx = 0.1;
+    double PBx = 0.2;
+    double gamma = 1.0;
+    double computed = overlap_1d(l1, l2, PAx, PBx, gamma);
+    double ref = 0.52;
+    double thresh = 1.0e-5;
+    return compare(computed, ref, thresh);
+}
+
+int test_full_overlap_1() {
     int lmn1[3] = {0, 0, 0};
     double A[3] = {0.0, 0.0, 0.0};
     double a = 1.8;
@@ -23,7 +35,7 @@ int overlap0() {
     return compare(computed, ref, thresh);
 }
 
-int overlap1() {
+int test_full_overlap_2() {
     int lmn1[3] = {1, 0, 0};
     double A[3] = {0.0, 0.0, 0.0};
     double a = 1.8;
@@ -37,7 +49,8 @@ int overlap1() {
 }
 
 int main() {
-    return overlap0()
-        | overlap1()
-        | 0;
+    return test_overlap1d() |
+        test_full_overlap_1() |
+        test_full_overlap_2() |
+        0;
 }
