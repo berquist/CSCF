@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(SCF)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra -Wall")
+
 include_directories(include)
 
 file (GLOB SOURCES "src/*.c")
 
 add_executable(scf ${SOURCES})
 
-target_link_libraries(scf m)
+set(EXTERNAL_LIBS m cblas lapack gsl)
 
-target_link_libraries(scf cblas)
-
-target_link_libraries(scf lapack)
+target_link_libraries(scf ${EXTERNAL_LIBS})
 
 option(BUILD_DOC "Build documentation" ON)
 

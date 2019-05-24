@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
     {H1, H2}     
   };
   normalise(&H1);
+  normalise(&H2);
   for(int i = 0; i < hyd.nbfs; i++)
     normalise(&(hyd.basisfunctions[i]));
   calculate_integral(&hyd);

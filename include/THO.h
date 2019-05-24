@@ -13,7 +13,7 @@
 
 void calculate_integral(sys*);
 
-double f(double, double, double, double, double);
+double f(int, int, int, double, double);
 
 double overlap_1d(int, int, double, double, double);
 
@@ -25,3 +25,10 @@ double kinetic(int*, double*, double, int*, double*, double);
 
 double Tab(bfn, bfn);
 
+double A(int, int, int, int, int, double, double, double, double);
+
+void G_array(int, int, double, double, double, double, double*);
+
+double nuclear(int*, double*, double, int*, double*, double, double*);
+
+double Vab(bfn, bfn, double*);
