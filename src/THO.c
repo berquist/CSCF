@@ -21,11 +21,11 @@ void calculate_integral(sys* mol){
   print_matrix(mol->T, mol->nbfs, mol->nbfs);
 }
 
-double f(double j, double l, double m, double PA, double PB){
-  double total = 0;
+double f(int j, int l, int m, double PA, double PB){
+  double total = 0.0;
   for (int k = 0; k < j + 1; k++){
-    if ((j - m <= k) && (k <= l)){
-      total += binomial(l, k) * binomial(m, j-k) * pow(PA, l-k) * pow(PB, m+k-j);
+    if ((j - l <= k) && (k <= m)){
+      total += binomial(l, j - k) * binomial(m, k) * pow(PA, l - j + k) * pow(PB, m - k);
     }
   }
   return total;
@@ -33,16 +33,20 @@ double f(double j, double l, double m, double PA, double PB){
 
 double overlap_1d(int l1, int l2, double PAx, double PBx, double gamma){
   double total = 0;
-  for (double j = 0; j < floor((l1 + l2) / 2) + 1; j++){
+  for (int j = 0; j < floor((l1 + l2) * 0.5) + 1; j++){
     total += f(2*j, l1, l2, PAx, PBx) * double_factorial(2*j - 1) / pow(2*gamma, j);
   }
+  return total;
 }
 
 double overlap(int* lmn1, double* A, double a, int* lmn2, double* B, double b){
   double gamma = a + b;
   double Q[3];
-  broadcast_vv(A, B, 3, Q);
-  cblas_dscal(3, a*b/gamma, Q, 1);
+  /* broadcast_vv(A, B, 3, Q); */
+  /* cblas_dscal(3, a*b/gamma, Q, 1); */
+  Q[0] = (a * A[0] + b * B[0]) / gamma;
+  Q[1] = (a * A[1] + b * B[1]) / gamma;
+  Q[2] = (a * A[2] + b * B[2]) / gamma;
   double dist = dist2(A, B);
   double S_x = overlap_1d(lmn1[0], lmn2[0], Q[0] - A[0], Q[0] - B[0], gamma);
   double S_y = overlap_1d(lmn1[1], lmn2[1], Q[1] - A[1], Q[1] - B[1], gamma);
@@ -61,8 +65,7 @@ double Sab(bfn bf1, bfn bf2){
 }
 
 double kinetic(int* lmn1, double* A, double a, int* lmn2, double* B, double b){
-  int l1, m1, n1, l2, m2, n2;
-  l1 = lmn1[0]; m1 = lmn1[1]; n1 = lmn1[2]; l2 = lmn2[0]; m2 = lmn2[1]; n2 = lmn2[2];
+  int l2 = lmn2[0]; int m2 = lmn2[1]; int n2 = lmn2[2];
   int pl2mn[3] = { l2 + 2, m2, n2 }; int plm2n[3] = { l2, m2 + 2, n2 }; int plmn2[3] = { l2, m2, n2 + 2 };
   int ml2mn[3] = { l2 - 2, m2, n2 }; int mlm2n[3] = { l2, m2 - 2, n2 }; int mlmn2[3] = { l2, m2, n2 - 2 };
 

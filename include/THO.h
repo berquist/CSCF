@@ -13,7 +13,7 @@
 
 void calculate_integral(sys*);
 
-double f(double, double, double, double, double);
+double f(int, int, int, double, double);
 
 double overlap_1d(int, int, double, double, double);
 

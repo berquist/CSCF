@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 
-double factorial(double n){
+int factorial(int n){
   if (n <= 1){
     return 1;
   } else {
@@ -9,7 +9,7 @@ double factorial(double n){
   }
 }
 
-double double_factorial(double n){
+int double_factorial(int n){
   if (n <= 1){
     return 1;
   } else {
@@ -17,7 +17,7 @@ double double_factorial(double n){
   }
 }
 
-double binomial(double n, double k){
+int binomial(int n, int k){
   if(n == k){
     return 1;
   } else {

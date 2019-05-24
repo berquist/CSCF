@@ -14,7 +14,7 @@
 #include "THO.h"
 #include "utils.h"
 
-int main(int argc, char *argv[])
+int main()
 {
   
   bfn H1 = {

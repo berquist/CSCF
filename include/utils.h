@@ -1,10 +1,10 @@
 #pragma once
 
-double double_factorial(double);
+int double_factorial(int);
 
-double factorial(double);
+int factorial(int);
 
-double binomial(double, double);
+int binomial(int, int);
 
 void broadcast_vv(double*, double*, int N, double*);
 
