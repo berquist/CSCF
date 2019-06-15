@@ -27,7 +27,7 @@ double Tab(bfn, bfn);
 
 double A(int, int, int, int, int, double, double, double, double);
 
-void G_array(int, int, double, double, double, double, double*);
+double* G_array(int, int, double, double, double, double);
 
 double nuclear(int*, double*, double, int*, double*, double, double*);
 

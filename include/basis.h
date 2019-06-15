@@ -19,7 +19,7 @@ typedef struct bfn {
   double origin[3];
   int shell[3];
   double norm[3];
-  double massno;
+  double atomno;
 } bfn;
 
 void bfn_set(bfn*, int, double*, double*, int*, double, double);

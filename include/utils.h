@@ -20,4 +20,4 @@ double min(double, double);
 
 double max(double, double);
 
-double boys(int, int);
+double boys(double, double);

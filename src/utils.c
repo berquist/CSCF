@@ -84,6 +84,6 @@ void gpc(double* A, double a, double* B, double b, double* Q){
   Q[2] = (a*A[2] + b*B[2]) / (a+b);
 }
 
-double boys(int n, int T){
+double boys(double n, double T){
   return gsl_sf_hyperg_1F1(n+0.5, n+1.5, -T) / (2.0*n + 1.0);
 }

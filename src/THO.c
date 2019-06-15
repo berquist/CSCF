@@ -2,6 +2,7 @@
 #include "utils.h"
 #include <math.h>
 #include <cblas.h>
+#include <stdlib.h>
 
 
 void calculate_integral(sys* mol){
@@ -23,7 +24,7 @@ void calculate_integral(sys* mol){
   for(int i = 0; i < mol->nbfs; i++){
     for(int j = 0; j < mol->nbfs; j++){
       for(int k = 0; k < mol->nbfs; k++){
-	mol->V[i*mol->nbfs + j] += -mol->basisfunctions[k].massno * Vab(mol->basisfunctions[i], mol->basisfunctions[j], mol->basisfunctions[k].origin);
+	mol->V[i*mol->nbfs + j] += mol->basisfunctions[k].atomno * Vab(mol->basisfunctions[i], mol->basisfunctions[j], mol->basisfunctions[k].origin);
       }
     }
   }
@@ -97,20 +98,30 @@ double Tab(bfn bf1, bfn bf2){
 
 
 double A(int i, int r, int u, int l1, int l2, double PAx, double PBx, double CPx, double gamma){
-  double total = pow(-1, i) * f(i, l1, l2, PAx, PBx) * pow(-1, u) * factorial(i)*pow(CPx, i-2*r-2*u) * pow(0.25/gamma, r+u) / factorial(r) / factorial(u) / factorial(i-2*r-2*u);
-  return total;
+  double epsilon = 1 / (4*gamma);
+  double num = pow(-1, i) * f(i, l1, l2, PAx, PBx) *  pow(-1, u) * factorial(i) * pow(CPx, i - 2*r - 2*u) * pow(epsilon, r+u);
+  double denom = factorial(r) * factorial(u) * factorial(i - 2*r - 2*u);
+  return num/denom;
 }
 
-void G_array(int l1, int l2, double PAx, double PBx, double CPx, double gamma, double* out){
-  int imax = l1 + l2 + 1;
-  for(int i = 0; i < imax; i++){
-    for(int r = 0; r <= i/2; r++){
-      for(int u = 0; u <=(i - 2* r) * 0.5; u++){
+double* G_array(int l1, int l2, double PAx, double PBx, double CPx, double gamma){
+  int l1l2 = l1 + l2;
+  double* out = malloc(sizeof (double) * l1l2+1);
+  if (l1l2 == 0){
+    out[0] = 1;
+  } else {
+    //garbage so compiler doesn't shit itself over unused values
+    double wow = PAx + PBx + CPx + gamma;
+  }
+  /* for(int i = 0; i <= l1 + l2; i++){
+    for(int r = 0; r <= floor(i/2); r++){
+      for(int u = 0; u <=floor((i - 2* r) * 0.5); u++){
 	int iI = i - 2 * r - u;
-	out[iI] = A(i, r, u, l1, l2, PAx, PBx, CPx, gamma);
+	out[iI] += A(i, r, u, l1, l2, PAx, PBx, CPx, gamma);
       }
     }
-  }
+  }*/
+  return out;
 }
 
 double nuclear(int* lmn1, double* A, double a, int* lmn2, double* B, double b, double* C){
@@ -121,13 +132,11 @@ double nuclear(int* lmn1, double* A, double a, int* lmn2, double* B, double b, d
   double gamma = a + b;
   double distPC = dist2(C, Q);
   double distAB = dist2(A, B);
-  double Gx[l1+l2+1], Gy[m1+m2+1], Gz[n1+n2+1];
-  G_array(l1, l2, Q[0] - A[0], Q[0] - B[0], Q[0] - C[0], gamma, Gx);
-  G_array(m1, m2, Q[1] - A[1], Q[1] - B[1], Q[1] - C[1], gamma, Gy);
-  G_array(n1, n2, Q[2] - A[2], Q[2] - B[2], Q[2] - C[2], gamma, Gz);
+  double* Gx = G_array(l1, l2, Q[0] - A[0], Q[0] - B[0], Q[0] - C[0], gamma);
+  double* Gy = G_array(m1, m2, Q[1] - A[1], Q[1] - B[1], Q[1] - C[1], gamma);
+  double* Gz = G_array(n1, n2, Q[2] - A[2], Q[2] - B[2], Q[2] - C[2], gamma);
 
   double sum = 0.0;
-
   for(int i = 0; i <= l1+l2; i++){
     for(int j = 0; j <= m1+m2; j++){
       for(int k = 0; k <= n1+n2; k++){
@@ -135,7 +144,11 @@ double nuclear(int* lmn1, double* A, double a, int* lmn2, double* B, double b, d
       }
     }
   }
-  return sum * exp(-a * b * distAB / gamma) * 2 * M_PI / gamma;
+  free(Gx);
+  free(Gy);
+  free(Gz);
+
+  return sum * exp(-a * b * distAB / gamma) * -2 * M_PI / gamma;
 }
 
 double Vab(bfn bf1, bfn bf2, double* C){
