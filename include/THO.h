@@ -32,3 +32,11 @@ double* G_array(int, int, double, double, double, double);
 double nuclear(int*, double*, double, int*, double*, double, double*);
 
 double Vab(bfn, bfn, double*);
+
+double* H_array(int, int, double, double, double);
+
+double* C_array(int, int, double, double, double, int, int, double, double, double, double);
+
+double electron(int*, double*, double, int*, double*, double, int*, double*, double, int*, double*, double);
+
+double ERIabcd(bfn, bfn, bfn, bfn);

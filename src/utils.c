@@ -61,7 +61,7 @@ double distd(double* vec1, double* vec2){
 void print_matrix(double* mat, int M, int K){
   for(int i = 0; i < M; i++){
     for(int j = 0; j < K; j++){
-      printf("% .4f ", mat[i * K + j]);
+      printf("% .10f ", mat[i * K + j]);
     }
     printf("\n");
   }
