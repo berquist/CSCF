@@ -5,15 +5,17 @@
 typedef struct system {
   int natoms;
   int nbfs;
-  bfn basisfunctions[2];
-  double S[4];
-  double T[4];
-  double V[4];
-  double ERI[16];
+  bfn* basisfunctions;
+  double* S;
+  double* T;
+  double* V;
+  double* ERI;
 } sys;
 
 void print_system_info(sys*);
 
-sys system_create(FILE*, char*);
+void system_from_file(FILE*, char*);
+
+sys* system_create(int, int);
 
 void system_destroy(sys*);

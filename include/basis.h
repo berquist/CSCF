@@ -22,7 +22,7 @@ typedef struct bfn {
   double atomno;
 } bfn;
 
-bfn* bfn_create(int, double*, double*, double[3], int[3], double*, double);
+bfn* bfn_create(int, double*, double*, double[3], int[3], double);
 
 void bfn_destroy(bfn*);
 

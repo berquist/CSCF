@@ -16,7 +16,7 @@ void normalise(bfn* basis){
   }
 }
 
-bfn* bfn_create(int nprimitives, double* exps, double* coefs, double origin[3], int shell[3], double* norm, double atomno){
+bfn* bfn_create(int nprimitives, double* exps, double* coefs, double origin[3], int shell[3], double atomno){
   
   bfn *ret_bfn = malloc(sizeof (bfn));
   if (ret_bfn == NULL)
@@ -41,13 +41,13 @@ bfn* bfn_create(int nprimitives, double* exps, double* coefs, double origin[3], 
   for(int i = 0; i < nprimitives; i++){
     ret_bfn->exps[i] = exps[i];
     ret_bfn->coefs[i] = coefs[i];
-    ret_bfn->norm[i] = norm[i];
   }
   for(int i = 0; i < 3; i++){
     ret_bfn->shell[i] = shell[i];
     ret_bfn->origin[i] = origin[i];
   }
   ret_bfn->atomno = atomno;
+  normalise(ret_bfn);
   return ret_bfn;
 }
 
