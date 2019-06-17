@@ -16,7 +16,7 @@
 
 int main(int argc, char *argv[])
 {
-  
+  /*
   bfn H1 = {
     3,
     {3.42525091, 0.62391373, 0.16885540},
@@ -47,5 +47,6 @@ int main(int argc, char *argv[])
   for(int i = 0; i < hyd.nbfs; i++)
     normalise(&(hyd.basisfunctions[i]));
   calculate_integral(&hyd);
+  */
   return 0;
 }

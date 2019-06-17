@@ -201,6 +201,8 @@ double* C_array(int l1, int l2, double PAx, double PBx, double gamma1, int l3, i
       }
     }
   }
+  free(H1);
+  free(H2);
   return out;
 }
 
@@ -232,6 +234,9 @@ double electron(int* lmn1, double* A, double a,
       }
     }
   }
+  free(Cx);
+  free(Cy);
+  free(Cz);
   return sum * exp((-a * b * distAB / gamma1)) * exp((-c * d * distCD / gamma2)) * 2 * pow(M_PI, 2) * (1 / (gamma1 * gamma2)) * pow(M_PI * (1 / (gamma1 + gamma2)), 0.5);
 }
 
@@ -241,8 +246,9 @@ double ERIabcd(bfn bfn1, bfn bfn2, bfn bfn3, bfn bfn4){
     for(int j = 0; j < bfn2.nprimitives; j++){
       for(int k = 0; k < bfn3.nprimitives; k++){
 	for(int l = 0; l < bfn4.nprimitives; l++){
-	  total +=  bfn1.norm[i] * bfn2.norm[j] * bfn3.norm[k] * bfn4.norm[l] *
-	            bfn1.coefs[i] * bfn2.coefs[j] * bfn3.coefs[k] * bfn4.coefs[l] *
+	  total +=
+	    bfn1.norm[i] * bfn2.norm[j] * bfn3.norm[k] * bfn4.norm[l] *
+	    bfn1.coefs[i] * bfn2.coefs[j] * bfn3.coefs[k] * bfn4.coefs[l] *
 	    electron(bfn1.shell, bfn1.origin, bfn1.exps[i],
 		     bfn2.shell, bfn2.origin, bfn2.exps[j],
 		     bfn3.shell, bfn3.origin, bfn3.exps[k],

@@ -14,4 +14,6 @@ typedef struct system {
 
 void print_system_info(sys*);
 
-void init_system(sys*, FILE*, char*);
+sys system_create(FILE*, char*);
+
+void system_destroy(sys*);

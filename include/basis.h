@@ -14,14 +14,16 @@
 
 typedef struct bfn {
   int nprimitives; /**< The number of primitives in each basisfunction. */
-  double exps[3];
-  double coefs[3];
+  double* exps;
+  double* coefs;
   double origin[3];
   int shell[3];
-  double norm[3];
+  double* norm;
   double atomno;
 } bfn;
 
-void bfn_set(bfn*, int, double*, double*, int*, double, double);
+bfn* bfn_create(int, double*, double*, double[3], int[3], double*, double);
+
+void bfn_destroy(bfn*);
 
 void normalise(bfn*);
